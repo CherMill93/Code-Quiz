@@ -3,10 +3,22 @@
 var timeLeft = 60;
 var currentIndex = 0
 var startButton = document.querySelector(".start-quiz")
-var pushButton = document.querySelector(".push-button")
 var questionHeading = document.querySelector(".question-heading")
-var questionContainer = document.querySelector(".question-container")
+var questionContainer = document.querySelector(".question")
 var answerContainer = document.querySelector(".answer-container")
+questionContainer.style.display = "none"
+
+var questionChoice1 =  document.getElementById("option1")
+questionChoice1.addEventListener("click", checkAnswer)
+
+var questionChoice2 = document.getElementById("option2")
+questionChoice2.addEventListener("click", checkAnswer)
+
+var questionChoice3 = document.getElementById("option3")
+questionChoice3.addEventListener("click", checkAnswer)
+
+var questionChoice4 = document.getElementById("option4")
+questionChoice4.addEventListener("click", checkAnswer)
 
 //const quizContainer = document.getElementById('quiz');
 //const resultsContainer = document.getElementById('results');
@@ -21,32 +33,38 @@ var answerContainer = document.querySelector(".answer-container")
 // on submit, show results
 //submitButton.addEventListener('click', showResults);
 
-var startButton = document.getElementById("start-quiz")
+
 
 
 function countDown(){
 //use timer from activity
 }
 
-function startQuiz(){
-  push
-  console.log("click")
-}
-startButton.onclick = startQuiz
+startButton.addEventListener("click",function(){
+  questionContainer.style.display = "block"
+  startButton.style.display = "none"
+  showQuestion()
+})
+
 
 function highScores(){
   push
   console.log("click")
 }
-startButton.onclick("click")
+
 
 
 function showQuestion(){
-
+  questionHeading.textContent = myQuestions[currentIndex].question
+  questionChoice1.textContent = myQuestions[currentIndex].choices[0]
+  questionChoice2.textContent = myQuestions[currentIndex].choices[1]
+  questionChoice3.textContent = myQuestions[currentIndex].choices[2]
+  questionChoice4.textContent = myQuestions[currentIndex].choices[3]
 }
 
 function checkAnswer(){
-
+  var userChoice = this.getAttribute("data-optionvalue")
+  console.log(userChoice)
 }
 
 //use an array of objects for questions
