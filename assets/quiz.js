@@ -2,10 +2,12 @@
 
 var timeLeft = 60;
 var currentIndex = 0
+var timerObj;
 var startButton = document.querySelector(".start-quiz")
 var questionHeading = document.querySelector(".question-heading")
 var questionContainer = document.querySelector(".question")
 var answerContainer = document.querySelector(".answer-container")
+var timeRemaining = document.getElementById("timer")
 questionContainer.style.display = "none"
 
 var questionChoice1 =  document.getElementById("option1")
@@ -20,12 +22,15 @@ questionChoice3.addEventListener("click", checkAnswer)
 var questionChoice4 = document.getElementById("option4")
 questionChoice4.addEventListener("click", checkAnswer)
 
-//const quizContainer = document.getElementById('quiz');
+var score = 0;
+
 //const resultsContainer = document.getElementById('results');
 //const submitButton = document.getElementById('submit');
 
 //function buildQuiz(){}
-//function showResults(){}
+function showResults(){
+  console.log("SCore",score,timeLeft)
+}
 
 //display quiz right away
 //buildQuiz();
@@ -43,6 +48,16 @@ function countDown(){
 startButton.addEventListener("click",function(){
   questionContainer.style.display = "block"
   startButton.style.display = "none"
+  timerObj = setInterval(function(){
+     timeRemaining.textContent = timeLeft;
+     if (timeLeft <= 0){
+       clearInterval(timerObj);
+       showResults()
+     } else {
+       timeLeft-- ;//timeLeft = timeLeft -1;
+     }
+    
+  },1000)
   showQuestion()
 })
 
@@ -65,6 +80,15 @@ function showQuestion(){
 function checkAnswer(){
   var userChoice = this.getAttribute("data-optionvalue")
   console.log(userChoice)
+  if (userChoice == myQuestions[currentIndex].correctAnswer){
+    score+=10
+  }else{
+    timeLeft-=5
+  }
+  if (currentIndex<myQuestions.length-1){
+    currentIndex++
+    showQuestion()
+  } 
 }
 
 //use an array of objects for questions
@@ -76,12 +100,12 @@ var myQuestions = [
   },
   {
     question: "What is the name of Thor's human alter ego?",
-    answers: ["Throg", "Bill Foster", "Donald Blake", "Adam Warlock"],
+    choices: ["Throg", "Bill Foster", "Donald Blake", "Adam Warlock"],
     correctAnswer: 2
   },
   {
     question: "Which of these villains does Thor fear the most?",
-    answers: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
+    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
     correctAnswer: 1
   },
 ]
