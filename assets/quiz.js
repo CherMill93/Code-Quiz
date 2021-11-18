@@ -6,9 +6,13 @@ var timerObj;
 var startButton = document.querySelector(".start-quiz")
 var questionHeading = document.querySelector(".question-heading")
 var questionContainer = document.querySelector(".question")
+questionContainer.style.display = "none"
 var answerContainer = document.querySelector(".answer-container")
 var timeRemaining = document.getElementById("timer")
-questionContainer.style.display = "none"
+
+var saveHighScores = document.getElementById("user-scores") //is this placed correctly
+
+
 
 var questionChoice1 =  document.getElementById("option1")
 questionChoice1.addEventListener("click", checkAnswer)
@@ -51,6 +55,7 @@ startButton.addEventListener("click",function(){
   timerObj = setInterval(function(){
      timeRemaining.textContent = timeLeft;
      if (timeLeft <= 0){
+      questionContainer.style.display = "none"
        clearInterval(timerObj);
        showResults()
      } else {
@@ -61,14 +66,6 @@ startButton.addEventListener("click",function(){
   showQuestion()
 })
 
-
-function highScores(){
-  push
-  console.log("click")
-}
-
-
-
 function showQuestion(){
   questionHeading.textContent = myQuestions[currentIndex].question
   questionChoice1.textContent = myQuestions[currentIndex].choices[0]
@@ -77,18 +74,29 @@ function showQuestion(){
   questionChoice4.textContent = myQuestions[currentIndex].choices[3]
 }
 
-function checkAnswer(){
+function checkAnswer(){ //would this be better in a for loop?
   var userChoice = this.getAttribute("data-optionvalue")
   console.log(userChoice)
   if (userChoice == myQuestions[currentIndex].correctAnswer){
     score+=10
+    //textContent = "Correct!" - Want to show this message before moving on
   }else{
     timeLeft-=5
+    //textContent = "Wrong!" - want to show this message before moving on
   }
   if (currentIndex<myQuestions.length-1){
     currentIndex++
     showQuestion()
-  } 
+  } else {
+    questionContainer.style.display = "none"
+    clearInterval(timerObj);
+  }
+}
+
+function saveHighScores(){
+  //must only appear once quiz is completed
+  //tell it to save score in the 'hsList' table once 'Save High Scores' is clicked
+  //
 }
 
 //use an array of objects for questions
@@ -109,3 +117,5 @@ var myQuestions = [
     correctAnswer: 1
   },
 ]
+
+// look at Robot Gladiatiors for High Scores ex

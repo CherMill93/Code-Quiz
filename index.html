@@ -14,17 +14,23 @@
   </header>
   <main class="container">
     <section class="container text-center">
-      <h6>Timed qui</h6>
-      <li>Negative</li>
-      <li></li>
       <h1 id="timer"></h1>
     </section>
   <button class="start-quiz btn btn-primary">Start Quiz</button>
  
-
-  <div class="push-button">
-    <button class="high-scores btn btn-warning">High Scores</button>
+  <div>
+    <button class="user-scores btn btn-warning">High Scores</button>
   </div>
+
+<section id = "high-scores">
+    <!--should the 'high-scores' button be moved into this <div>-->
+    <div> <!--I want this to show once the quiz is completed-->
+      <button id="hidden">Save High Scores</button>
+    </div>
+
+    <table id = "hsList"></table> <!--table for high scores to go-->
+  </section>
+  
 
   <div class="question container">
     <h2 class="question-heading"></h2>
@@ -39,6 +45,8 @@
 
   <div class="answer-container">
   </div>
+
+
   <footer>
   </footer>
   
