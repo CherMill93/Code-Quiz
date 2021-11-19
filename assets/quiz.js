@@ -10,8 +10,7 @@ questionContainer.style.display = "none"
 var answerContainer = document.querySelector(".answer-container")
 var timeRemaining = document.getElementById("timer")
 
-var saveHighScores = document.getElementById("user-scores") //is this placed correctly
-
+//var saveHighScores = document.getElementById("hidden") //is this placed correctly
 
 
 var questionChoice1 =  document.getElementById("option1")
@@ -28,12 +27,9 @@ questionChoice4.addEventListener("click", checkAnswer)
 
 var score = 0;
 
-//const resultsContainer = document.getElementById('results');
-//const submitButton = document.getElementById('submit');
-
-//function buildQuiz(){}
 function showResults(){
   console.log("SCore",score,timeLeft)
+  saveHighScores();
 }
 
 //display quiz right away
@@ -90,16 +86,24 @@ function checkAnswer(){ //would this be better in a for loop?
   } else {
     questionContainer.style.display = "none"
     clearInterval(timerObj);
+    showResults();
   }
 }
 
 function saveHighScores(){
+  if (myQuestions.length-1) { //needs to activate when Question 6 is answered
+    var saveButton = document.createElement("button");
+    saveButton.innerHTML = "Save Score"
+    console.log(saveButton)
+    var saveScore = document.getElementById("save-score")
+    saveScore.appendChild(saveButton);
   //must only appear once quiz is completed
   //tell it to save score in the 'hsList' table once 'Save High Scores' is clicked
   //
+  }
 }
 
-//use an array of objects for questions
+//Questions Array
 var myQuestions = [
   {
     question: "Who was the first character to wield Thor's hammer Mjollnir?",
@@ -116,6 +120,22 @@ var myQuestions = [
     choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
     correctAnswer: 1
   },
+  {
+    question: "Question 4",
+    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
+    correctAnswer: 1
+  },
+  {
+    question: "Question 5",
+    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
+    correctAnswer: 1
+  },
+  {
+    question: "Question 6",
+    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
+    correctAnswer: 1
+  },
 ]
+
 
 // look at Robot Gladiatiors for High Scores ex
