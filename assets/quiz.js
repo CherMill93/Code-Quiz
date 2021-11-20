@@ -10,6 +10,8 @@ questionContainer.style.display = "none"
 var answerContainer = document.querySelector(".answer-container")
 var timeRemaining = document.getElementById("timer")
 
+var getScores = JSON.parse(localStorage.getItem("scoreBank")) || [] // model for High Scores
+
 //var saveHighScores = document.getElementById("hidden") //is this placed correctly
 
 
@@ -27,10 +29,7 @@ questionChoice4.addEventListener("click", checkAnswer)
 
 var score = 0;
 
-function showResults(){
-  console.log("SCore",score,timeLeft)
-  saveHighScores();
-}
+
 
 //display quiz right away
 //buildQuiz();
@@ -70,7 +69,9 @@ function showQuestion(){
   questionChoice4.textContent = myQuestions[currentIndex].choices[3]
 }
 
-function checkAnswer(){ //would this be better in a for loop?
+//for loop for High scores counter, move object to wherever that div would be.
+
+function checkAnswer(){ 
   var userChoice = this.getAttribute("data-optionvalue")
   console.log(userChoice)
   if (userChoice == myQuestions[currentIndex].correctAnswer){
@@ -91,12 +92,21 @@ function checkAnswer(){ //would this be better in a for loop?
 }
 
 function saveHighScores(){
-  if (myQuestions.length-1) { //needs to activate when Question 6 is answered
-    var saveButton = document.createElement("button");
-    saveButton.innerHTML = "Save Score"
-    console.log(saveButton)
-    var saveScore = document.getElementById("save-score")
-    saveScore.appendChild(saveButton);
+  var tempObject = {
+    highScore: score,
+    playerInitials: "CM"
+  }
+  getScores.push(tempObject)
+  //replace CM with variable
+  localStorage.setItem("scoreBank", JSON.stringify(getScores))
+
+
+  if (myQuestions.length-1) { 
+    // var saveButton = document.createElement("button");
+    // saveButton.innerHTML = "Save Score"
+    // console.log(saveButton)
+    // var saveScore = document.getElementById("save-score")
+    // saveScore.appendChild(saveButton);
   //must only appear once quiz is completed
   //tell it to save score in the 'hsList' table once 'Save High Scores' is clicked
   //
@@ -121,21 +131,23 @@ var myQuestions = [
     correctAnswer: 1
   },
   {
-    question: "Question 4",
-    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
-    correctAnswer: 1
+    question: "What is the name of Thor's pet Hellhound?",
+    choices: ["Mjolly", "Jormungandr", "Thori", "Asgardia"],
+    correctAnswer: 2
   },
   {
-    question: "Question 5",
-    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
-    correctAnswer: 1
+    question: "What event resulted in Thor becoming King of Asgard?",
+    choices: ["Thor: Disassembled", "Ragnarok", "Black Winter", "War of the Realms"],
+    correctAnswer: 3
   },
   {
-    question: "Question 6",
-    choices: ["Cul Borson", "Gorr the God Butcher", "Galactus", "Hela"],
-    correctAnswer: 1
+    question: "Who was revealed to be Thor's birth mother in the Avengers event 'Enter the Phoenix'?",
+    choices: ["The Phoenix Force", "Lady Loki", "Frigga", "Gaia"],
+    correctAnswer: 0
   },
 ]
 
-
-// look at Robot Gladiatiors for High Scores ex
+function showResults(){
+  console.log("Score",score,timeLeft)
+  saveHighScores();
+}
