@@ -74,7 +74,7 @@ function checkAnswer(){
     score+=10
     //textContent = "Correct!" - Want to show this message before moving on
   }else{
-    timeLeft-=5
+    timeLeft-=15
     //textContent = "Wrong!" - want to show this message before moving on
   }
   if (currentIndex<myQuestions.length-1){
