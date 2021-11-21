@@ -10,6 +10,8 @@ questionContainer.style.display = "none"
 var answerContainer = document.querySelector(".answer-container")
 var timeRemaining = document.getElementById("timer")
 
+var hsContainer = document.getElementById("hsList")
+
 var getScores = JSON.parse(localStorage.getItem("scoreBank")) || [] // model for High Scores
 
 //var saveHighScores = document.getElementById("hidden") //is this placed correctly
@@ -37,12 +39,6 @@ var score = 0;
 // on submit, show results
 //submitButton.addEventListener('click', showResults);
 
-
-
-
-function countDown(){
-//use timer from activity
-}
 
 startButton.addEventListener("click",function(){
   questionContainer.style.display = "block"
@@ -87,29 +83,7 @@ function checkAnswer(){
   } else {
     questionContainer.style.display = "none"
     clearInterval(timerObj);
-    showResults();
-  }
-}
-
-function saveHighScores(){
-  var tempObject = {
-    highScore: score,
-    playerInitials: "CM"
-  }
-  getScores.push(tempObject)
-  //replace CM with variable
-  localStorage.setItem("scoreBank", JSON.stringify(getScores))
-
-
-  if (myQuestions.length-1) { 
-    // var saveButton = document.createElement("button");
-    // saveButton.innerHTML = "Save Score"
-    // console.log(saveButton)
-    // var saveScore = document.getElementById("save-score")
-    // saveScore.appendChild(saveButton);
-  //must only appear once quiz is completed
-  //tell it to save score in the 'hsList' table once 'Save High Scores' is clicked
-  //
+    saveHighScores()
   }
 }
 
@@ -147,7 +121,26 @@ var myQuestions = [
   },
 ]
 
-function showResults(){
-  console.log("Score",score,timeLeft)
-  saveHighScores();
+var playerInitials = window.prompt("Please enter your initials")
+
+function saveHighScores(){
+  if (myQuestions.length-1) { 
+    var tempObject = {
+      highScore: score,
+      name: playerInitials
+    }
+    getScores.push(tempObject)
+    //replace CM with variable
+    localStorage.setItem("scoreBank", JSON.stringify(getScores))
+    for(var i=0; i<getScores.length; i++){
+      scoreItem = document.createElement("li") 
+      scoreItem.textContent= `${getScores[i].highScore} : ${getScores[i].name}`;
+      hsContainer.appendChild(scoreItem);
+
+      
+  //must only appear once quiz is completed
+  //tell it to save score in the 'hsList' table once 'Save High Scores' is clicked
+  //
+  }
+}
 }
